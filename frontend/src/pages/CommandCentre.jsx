@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getZones, createAlert } from "../lib/api";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { riskIconWithStatus } from "../lib/leafletIcons";
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -18,15 +22,6 @@ import {
   Send,
   Zap,
 } from "lucide-react";
-
-const markers = [
-  { name: "Pitampura", risk: "0.82", tone: "critical", x: "44%", y: "16%" },
-  { name: "ATM 002", risk: "0.41", tone: "low", x: "67%", y: "24%" },
-  { name: "ATM 003", risk: "0.36", tone: "low", x: "31%", y: "43%" },
-  { name: "ATM 004", risk: "0.67", tone: "medium", x: "44%", y: "63%" },
-  { name: "ATM 005", risk: "0.73", tone: "critical", x: "65%", y: "58%" },
-  { name: "ATM 006", risk: "0.52", tone: "low", x: "58%", y: "82%" },
-];
 
 const activity = [
   ["08:42 AM", "Complaint filed", "(UPI Fraud)", "low"],
@@ -72,6 +67,10 @@ function MapMarker({ marker, selected, onSelect }) {
 }
 
 export default function Commandcentre() {
+  const [zones, setZones] = useState([]);
+  const [alertMessage, setAlertMessage] = useState(
+    "High risk activity detected in Zone GHY-14. Multiple complaints and unusual cash-out patterns observed. Recommend immediate monitoring and patrol deployment.",
+  );
   const [view, setView] = useState("Map");
   const [priority, setPriority] = useState("High");
   const [checks, setChecks] = useState({
@@ -85,7 +84,30 @@ export default function Commandcentre() {
   const [zoom, setZoom] = useState(1);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [showAllActivity, setShowAllActivity] = useState(false);
+  useEffect(() => {
+    getZones()
+      .then(setZones)
+      .catch((err) => console.error("Failed to load zones:", err));
+  }, []);
 
+  const markers = zones.map((zone) => ({
+    id: zone.id,
+    name: zone.name,
+    risk: zone.risk_score?.toFixed(2) ?? "0.00",
+    tone:
+      zone.risk_score >= 0.7
+        ? "critical"
+        : zone.risk_score >= 0.4
+          ? "medium"
+          : "low",
+    lat: zone.lat,
+    lng: zone.lng,
+    activeStatus: zone.active_alert_status,
+  }));
+
+  // Center map on Delhi NCR by default, or on the first zone if available
+  const mapCenter =
+    markers.length > 0 ? [markers[0].lat, markers[0].lng] : [28.6139, 77.209];
   const toggleCheck = (key) =>
     setChecks((current) => ({ ...current, [key]: !current[key] }));
   const visibleActivity = showAllActivity
@@ -142,91 +164,53 @@ export default function Commandcentre() {
             <Card className="map-card">
               <div
                 className="map-surface"
-                style={{
-                  "--map-zoom": zoom,
-                  filter:
-                    view === "Satellite"
-                      ? "saturate(1.35) contrast(.9) hue-rotate(10deg)"
-                      : "none",
-                }}
+                style={{ padding: 0, overflow: "hidden" }}
               >
-                <div className="map-grid" />
-                <div className="roads road-one" />
-                <div className="roads road-two" />
-                <div className="roads road-three" />
-                <div className="district-label rohini">Rohini</div>
-                <div className="district-label pitampura">Pitampura</div>
-                <div className="district-label north-delhi">North Delhi</div>
-                <div className="district-label punjabi">Punjabi Bagh</div>
-                <div className="district-label shalimar">Shalimar Bagh</div>
-                <div className="district-label kirti">Kirti Nagar</div>
-                <div className="district-label noida">Noida</div>
-                <div className="district-label faridabad">Faridabad</div>
-                <div className="zone-shape" />
-                {markers.map((marker) => (
-                  <MapMarker
-                    key={marker.name}
-                    marker={marker}
-                    selected={selectedMarker?.name === marker.name}
-                    onSelect={setSelectedMarker}
+                <MapContainer
+                  center={mapCenter}
+                  zoom={11}
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    borderRadius: "11px",
+                  }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                ))}
-                <div className="zone-center">
-                  <div className="big-pin critical">
-                    <span />
-                  </div>
-                  <div>
-                    <b>
-                      {selectedMarker ? selectedMarker.name : "Zone GHY-14"}
-                    </b>
-                    <small>
-                      {selectedMarker
-                        ? `Risk ${selectedMarker.risk}`
-                        : "Risk 0.78 — HIGH"}
-                    </small>
-                  </div>
-                </div>
-                <div className="map-switcher">
-                  <button
-                    className={view === "Map" ? "active" : ""}
-                    onClick={() => setView("Map")}
-                  >
-                    <MapIcon size={17} /> Map
-                  </button>
-                  <button
-                    className={view === "Satellite" ? "active" : ""}
-                    onClick={() => setView("Satellite")}
-                  >
-                    <Satellite size={17} /> Satellite
-                  </button>
-                </div>
-                <div className="map-controls">
-                  <button
-                    aria-label="Zoom in"
-                    onClick={() =>
-                      setZoom((value) => Math.min(value + 0.12, 1.6))
-                    }
-                  >
-                    <Plus size={20} />
-                  </button>
-                  <button
-                    aria-label="Zoom out"
-                    onClick={() =>
-                      setZoom((value) => Math.max(value - 0.12, 0.75))
-                    }
-                  >
-                    <Minus size={20} />
-                  </button>
-                  <button
-                    aria-label="Center map"
-                    onClick={() => {
-                      setZoom(1);
-                      setSelectedMarker(null);
-                    }}
-                  >
-                    <LocateFixed size={18} />
-                  </button>
-                </div>
+                  {markers.map((marker) => (
+                    <Marker
+                      key={marker.id}
+                      position={[marker.lat, marker.lng]}
+                      icon={riskIconWithStatus(
+                        marker.tone,
+                        marker.activeStatus,
+                      )}
+                      eventHandlers={{
+                        click: () => setSelectedMarker(marker),
+                      }}
+                    >
+                      <Popup>
+                        <b>{marker.name}</b>
+                        <br />
+                        Risk: {marker.risk}
+                        {marker.activeStatus === "dispatched" && (
+                          <>
+                            <br />
+                            🚓 Patrol Dispatched
+                          </>
+                        )}
+                        {marker.activeStatus === "actioned" && (
+                          <>
+                            <br />✓ Action Completed
+                          </>
+                        )}
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
+
                 <div className="map-legend">
                   <span>
                     <i className="dot low" /> Low
@@ -331,11 +315,18 @@ export default function Commandcentre() {
               </div>
               <label>Message</label>
               <div className="message-box">
-                High risk activity detected in Zone GHY-14. Multiple complaints
-                and unusual cash-out patterns observed.
-                <br />
-                Recommend immediate monitoring and patrol deployment.
-                <span>142/500</span>
+                <textarea
+                  value={alertMessage}
+                  onChange={(e) => setAlertMessage(e.target.value)}
+                  maxLength={500}
+                  style={{
+                    width: "100%",
+                    background: "transparent",
+                    border: "none",
+                    resize: "none",
+                  }}
+                />
+                <span>{alertMessage.length}/500</span>
               </div>
               <label>Suggested actions</label>
               <div className="check-list">

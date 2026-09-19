@@ -16,6 +16,23 @@ def _zones() -> list:
         _zones_cache = load_seed("zones.json")
     return _zones_cache
 
+def _zone_with_alert_status(zone: dict, all_alerts: list) -> dict:
+    """
+    Attaches the zone's most recent 'active' alert status (dispatched or
+    actioned) so Command Centre's map can show a badge on that marker.
+    """
+    zone_alerts = [a for a in all_alerts if a["zone_id"] == zone["id"]]
+    zone_alerts_sorted = sorted(zone_alerts, key=lambda a: a["created_at"], reverse=True)
+
+    active_status = None
+    for a in zone_alerts_sorted:
+        if a["status"] in ("dispatched", "actioned"):
+            active_status = a["status"]
+            break
+
+    return {**zone, "active_alert_status": active_status}
+
+
 
 def bump_zone_risk(zone_id: str, crime_category: str, transaction_data: Optional[dict] = None):
     """
@@ -67,6 +84,8 @@ def list_zones(
     crime_category: Optional[str] = None,
     min_risk: Optional[float] = Query(None, ge=0, le=1),
 ):
+    from . import alerts as alerts_router   # circular import se bachne ke liye function ke andar
+
     zones = _zones()
     if state:
         zones = [z for z in zones if z["state"].lower() == state.lower()]
@@ -74,13 +93,20 @@ def list_zones(
         zones = [z for z in zones if crime_category in z.get("crime_categories", [])]
     if min_risk is not None:
         zones = [z for z in zones if z["risk_score"] >= min_risk]
-    return zones
+
+    all_alerts = alerts_router._alerts()
+    return [_zone_with_alert_status(z, all_alerts) for z in zones]
 
 
 @router.get("/top", response_model=List[Zone])
 def top_risk_zones(limit: int = 5):
+    from . import alerts as alerts_router
+
     zones = sorted(_zones(), key=lambda z: z["risk_score"], reverse=True)
-    return zones[:limit]
+    top = zones[:limit]
+
+    all_alerts = alerts_router._alerts()
+    return [_zone_with_alert_status(z, all_alerts) for z in top]
 
 
 @router.get("/{zone_id}", response_model=Zone)

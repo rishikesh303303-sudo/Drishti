@@ -21,6 +21,7 @@ class Zone(BaseModel):
     complaint_surge_pct: float
     network_risk_pct: float
     crime_categories: List[str]
+    active_alert_status: Optional[str] = None
 
 
 class ZoneRiskBreakdown(BaseModel):
@@ -73,6 +74,7 @@ class AlertRecipient(BaseModel):
 class Alert(BaseModel):
     id: str
     zone_id: str
+    zone_name: Optional[str] = None
     priority: str  # standard | high | critical
     status: str  # draft | approved | dispatched | actioned
     message: str

@@ -54,5 +54,33 @@
     "complaint_surge_pct": 3,
     "network_risk_pct": 2,
     "crime_categories": ["UPI Fraud"]
+  },
+    {
+    "id": "zone-005",
+    "name": "Varanasi Zone 03",
+    "state": "Uttar Pradesh",
+    "district": "Varanasi",
+    "lat": 25.3176,
+    "lng": 82.9739,
+    "risk_score": 0.71,
+    "confidence": 0.77,
+    "risk_level": "high",
+    "complaint_surge_pct": 18,
+    "network_risk_pct": 15,
+    "crime_categories": ["Loan App Fraud", "UPI Fraud"]
+  },
+  {
+    "id": "zone-006",
+    "name": "Varanasi Zone 08",
+    "state": "Uttar Pradesh",
+    "district": "Varanasi",
+    "lat": 25.2823,
+    "lng": 83.0057,
+    "risk_score": 0.55,
+    "confidence": 0.68,
+    "risk_level": "medium",
+    "complaint_surge_pct": 10,
+    "network_risk_pct": 7,
+    "crime_categories": ["OTP Fraud"]
   }
 ]

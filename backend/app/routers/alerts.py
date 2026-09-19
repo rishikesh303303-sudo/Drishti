@@ -10,6 +10,7 @@ from fastapi import APIRouter, HTTPException
 
 from ..database import load_seed
 from ..schemas import Alert, AlertCreate, AlertRecipient, AddRecipientRequest
+from . import zones as zones_router
 
 router = APIRouter(prefix="/api/alerts", tags=["alerts"])
 
@@ -33,11 +34,18 @@ def _find(alert_id: str) -> dict:
 @router.get("", response_model=List[Alert])
 def list_alerts(status: Optional[str] = None):
     """Alerts.jsx's kanban board — call once per column (status=draft,
-    approved, dispatched, actioned)."""
+    approved, dispatched, actioned). Attaches each alert's zone_name so
+    the card shows "North Delhi Zone 14" instead of a raw zone_id."""
     alerts = _alerts()
     if status:
         alerts = [a for a in alerts if a["status"] == status]
-    return alerts
+
+    zone_lookup = {z["id"]: z["name"] for z in zones_router._zones()}
+    result = []
+    for a in alerts:
+        a_copy = {**a, "zone_name": zone_lookup.get(a["zone_id"], a["zone_id"])}
+        result.append(a_copy)
+    return result
 
 
 @router.get("/{alert_id}", response_model=Alert)

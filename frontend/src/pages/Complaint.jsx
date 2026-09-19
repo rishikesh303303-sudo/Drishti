@@ -31,6 +31,17 @@ function Complaint() {
   const [amount, setAmount] = useState("");
   const [status, setStatus] = useState("idle");
 
+  const categories = [
+  "UPI Fraud",
+  "Investment Scam",
+  "Loan App Fraud",
+  "ATM Cash-out",
+  "Phishing",
+  "Job Fraud",
+  "OTP Fraud",
+  "Other",
+];
+
   useEffect(() => {
     getZones().then((availableZones) => {
       setZones(availableZones);

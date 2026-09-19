@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
+import logo from "../assets/Drishtilogo.png";
 
 const styles = `
 :root {
@@ -55,21 +56,11 @@ button { border: 0; }
   font-weight: 800; letter-spacing: -.08em; line-height: .9;
 }
 .brand-mark {
-  position: relative; display: grid;
-  width: clamp(2.6rem, 3.8vw, 4.2rem); height: clamp(2.6rem, 3.8vw, 4.2rem);
-  place-items: center; border: 3px solid #1b5b94; border-radius: 50%;
-  box-shadow: inset 0 0 0 5px #edf7ff; transform: rotate(-16deg);
+  width: clamp(5rem, 8vw, 8rem);
+  height: clamp(5rem, 8vw, 8rem);
+  object-fit: contain;
 }
-.brand-mark::before {
-  position: absolute; width: 25%; height: 25%; border-radius: 50%;
-  background: #5bd7e2; box-shadow: 0 0 0 4px #d7f5ff; content: '';
-}
-.brand-eye { width: 72%; height: 38%; border: 3px solid #1b5b94; border-radius: 100% 0; transform: rotate(45deg); }
-.brand-eye i { display: none; }
-.tagline {
-  margin: clamp(2.5rem, 5vh, 4.5rem) 0 0; color: #3c6087;
-  font-size: clamp(1.4rem, 2vw, 2.4rem); font-weight: 500; letter-spacing: -.03em; line-height: 1.38;
-}
+
 .monitoring-status {
   display: flex; align-items: center; gap: .7rem; margin-top: auto;
   color: #6f88a3; font-size: clamp(.72rem, .85vw, .96rem); letter-spacing: .01em;
@@ -89,7 +80,18 @@ button { border: 0; }
 .orbit-ring { display: none; }
 .login-content { position: relative; width: 60%; min-width: 24rem; text-align: center; }
 .login-heading .eyebrow { margin: 0 0 1rem; color: #91a9c1; font-size: .57rem; font-weight: 800; letter-spacing: .23em; }
-.login-heading h2 { margin: 0; font-size: clamp(2.6rem, 4vw, 4.6rem); letter-spacing: -.065em; line-height: .95; }
+.login-heading h2 {
+  margin: 0;
+  font-size: clamp(2.6rem, 4vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -.065em;
+  line-height: .95;
+  font-family: 'Sora', 'Avenir Next', Inter, system-ui, sans-serif;
+  color: #373839;
+  text-shadow:
+    1px 1px 1px rgba(255, 255, 255, 0.9),
+    -1px -1px 1px rgba(163, 177, 198, 0.6);
+}
 .login-heading > p:last-child { margin: .9rem 0 clamp(2rem, 4vh, 3.4rem); color: #7890ad; font-size: clamp(.85rem, 1vw, 1.15rem); }
 .role-selector {
   display: flex; align-items: stretch; gap: .2rem; padding: .24rem; margin-bottom: 1.35rem;
@@ -288,11 +290,7 @@ function Login() {
 
       <section className="brand-column" aria-label="Drishti introduction">
         <div className="brand-lockup">
-          <div className="brand-mark" aria-hidden="true">
-            <span className="brand-eye">
-              <i />
-            </span>
-          </div>
+         <img src={logo} alt="DRISHTI" className="brand-mark" />
           <h1>DRISHTI</h1>
         </div>
         <p className="tagline">
@@ -316,7 +314,7 @@ function Login() {
         <div className="orbit-ring orbit-ring-two" />
         <div className="login-content">
           <header className="login-heading">
-            <p className="eyebrow">SECURE ACCESS / 01</p>
+            
             <h2>Sign In</h2>
             <p>Access your secure command centre</p>
           </header>
@@ -352,6 +350,7 @@ function Login() {
                   <option>Maharashtra</option>
                   <option>Karnataka</option>
                   <option>Delhi</option>
+                   <option>Uttar Pradesh</option>
                 </select>
                 <Icon name="chevron" size={15} />
               </label>
@@ -364,6 +363,7 @@ function Login() {
                   <option>Mumbai City</option>
                   <option>Bengaluru Urban</option>
                   <option>New Delhi</option>
+                   <option>Varanasi</option>
                 </select>
                 <Icon name="chevron" size={15} />
               </label>
@@ -392,7 +392,7 @@ function Login() {
 
             <button className="submit-button" type="submit">
               <span>{submitted ? "Access request sent" : "Submit"}</span>
-              <Icon name="send" size={18} />
+              
             </button>
           </form>
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/Drishtilogo.png";
 import {
   Activity,
   AlertTriangle,
@@ -126,9 +127,7 @@ export default function Dashboard() {
           <Menu />
         </button>
         <div className="brand">
-          <div className="eye-logo">
-            <span />
-          </div>
+          <img src={logo} alt="DRISHTI" className="eye-logo" />
           <strong>DRISHTI</strong>
         </div>
         <div className="admin-pill">
@@ -402,39 +401,10 @@ export default function Dashboard() {
           color: #07175f;
         }
         .eye-logo {
-          width: 66px;
-          height: 39px;
-          position: relative;
-          background: linear-gradient(140deg, #15bedf, #1f49dc);
-          clip-path: polygon(
-            0 50%,
-            25% 5%,
-            50% 0,
-            75% 5%,
-            100% 50%,
-            75% 95%,
-            50% 100%,
-            25% 95%
-          );
-        }
-        .eye-logo:after {
-          content: "";
-          position: absolute;
-          inset: 7px 17px;
-          background: white;
-          border-radius: 50%;
-          border: 4px solid #3d4ee0;
-        }
-        .eye-logo span {
-          position: absolute;
-          z-index: 2;
-          width: 10px;
-          height: 10px;
-          background: #1735c5;
-          border-radius: 50%;
-          left: 28px;
-          top: 15px;
-        }
+  width: 115px;
+  height: 100px;
+  object-fit: contain;
+}
         .admin-pill {
           padding: 9px 14px;
           border: 1px solid #dbe3ff;

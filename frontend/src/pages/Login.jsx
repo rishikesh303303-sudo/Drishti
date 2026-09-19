@@ -29,6 +29,7 @@ button { border: 0; }
   gap: clamp(2rem, 4vw, 6rem);
   min-height: 100vh;
   overflow: hidden;
+  overflow-x: hidden;
   padding: clamp(3rem, 8vh, 7rem) clamp(4rem, 8vw, 10rem);
   color: var(--navy);
   background: #f5f6f7;
@@ -158,7 +159,7 @@ form { display: grid; gap: 1rem; }
   .brand-mark { width: 2.3rem; height: 2.3rem; }
   .tagline { margin-top: 1.4rem; font-size: 1.25rem; }
   .monitoring-status { margin-top: 1.5rem; font-size: .68rem; }
-  .login-orbit { width: 100%; margin-top: 2.4rem; }
+    .login-orbit { width: 100%; min-width: 0; margin-top: 2.4rem; }
   .login-content { width: 68%; min-width: 0; }
   .login-heading .eyebrow { font-size: .45rem; }
   .login-heading h2 { font-size: 2.5rem; }

@@ -185,9 +185,14 @@ export default function Dashboard() {
                     <div className="welcome" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div>
               <h1>Good morning, Officer RISHI</h1>
-              <p>
-                Mon, 16 Jun 2025 <b>•</b> Shift: 08:00 AM – 04:00 PM
-              </p>
+             <p>
+  {new Date().toLocaleDateString('en-US', { 
+    weekday: 'short', 
+    day: '2-digit', 
+    month: 'short', 
+    year: 'numeric' 
+  })} • Shift: 08:00 AM – 04:00 PM
+</p>
             </div>
             <button className="live-button" onClick={() => navigate("/complaint")}>
               + File New Complaint

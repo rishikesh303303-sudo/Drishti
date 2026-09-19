@@ -1,0 +1,25 @@
+{
+  "stats": {
+    "prevented_loss_inr": 4500000,
+    "avg_response_time_min": 42,
+    "precision_at_k": 0.81,
+    "recall": 0.73,
+    "false_positive_rate": 0.12,
+    "model_version": "v1.3.0",
+    "alerts_dispatched": 27,
+    "zones_covered": 1204
+  },
+  "trend": [
+    { "date": "2026-09-10", "precision": 0.76, "recall": 0.68, "model_version": null },
+    { "date": "2026-09-14", "precision": 0.79, "recall": 0.70, "model_version": "v1.3.0" },
+    { "date": "2026-09-18", "precision": 0.81, "recall": 0.73, "model_version": null }
+  ],
+  "recent_wins": [
+    {
+      "zone_name": "North Delhi Zone 14",
+      "amount_saved_inr": 250000,
+      "date": "2026-09-17",
+      "description": "Patrol intercepted cash-out attempt within 40 minutes of alert."
+    }
+  ]
+}

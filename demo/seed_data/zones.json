@@ -1,0 +1,58 @@
+[
+  {
+    "id": "zone-001",
+    "name": "North Delhi Zone 14",
+    "state": "Delhi NCR",
+    "district": "North Delhi",
+    "lat": 28.7041,
+    "lng": 77.1025,
+    "risk_score": 0.78,
+    "confidence": 0.81,
+    "risk_level": "high",
+    "complaint_surge_pct": 21,
+    "network_risk_pct": 17,
+    "crime_categories": ["UPI Fraud", "Loan App Fraud"]
+  },
+  {
+    "id": "zone-002",
+    "name": "East Delhi Zone 07",
+    "state": "Delhi NCR",
+    "district": "East Delhi",
+    "lat": 28.6279,
+    "lng": 77.2773,
+    "risk_score": 0.65,
+    "confidence": 0.74,
+    "risk_level": "medium",
+    "complaint_surge_pct": 14,
+    "network_risk_pct": 12,
+    "crime_categories": ["Investment Scam"]
+  },
+  {
+    "id": "zone-003",
+    "name": "South Delhi Zone 21",
+    "state": "Delhi NCR",
+    "district": "South Delhi",
+    "lat": 28.5245,
+    "lng": 77.1855,
+    "risk_score": 0.61,
+    "confidence": 0.69,
+    "risk_level": "medium",
+    "complaint_surge_pct": 9,
+    "network_risk_pct": 8,
+    "crime_categories": ["OTP Fraud"]
+  },
+  {
+    "id": "zone-004",
+    "name": "West Delhi Zone 09",
+    "state": "Delhi NCR",
+    "district": "West Delhi",
+    "lat": 28.6633,
+    "lng": 77.0876,
+    "risk_score": 0.42,
+    "confidence": 0.60,
+    "risk_level": "low",
+    "complaint_surge_pct": 3,
+    "network_risk_pct": 2,
+    "crime_categories": ["UPI Fraud"]
+  }
+]

@@ -1,0 +1,5 @@
+[
+  { "id": "c-001", "zone_id": "zone-001", "crime_category": "UPI Fraud", "status": "new", "assigned_officer": null, "filed_at": "2026-09-18T08:00:00", "updated_at": "2026-09-18T08:00:00" },
+  { "id": "c-002", "zone_id": "zone-001", "crime_category": "UPI Fraud", "status": "investigating", "assigned_officer": "Officer Sharma", "filed_at": "2026-09-17T10:00:00", "updated_at": "2026-09-18T09:00:00" },
+  { "id": "c-003", "zone_id": "zone-002", "crime_category": "Investment Scam", "status": "pending_approval", "assigned_officer": "Officer Verma", "filed_at": "2026-09-17T14:00:00", "updated_at": "2026-09-18T07:30:00" }
+]

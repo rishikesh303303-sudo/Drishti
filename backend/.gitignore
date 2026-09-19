@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# Environment variables / secrets
+.env
+.env.local
+*.env
+
+# Database
+*.db
+*.sqlite3
+
+# Alembic - keep versions, ignore local db state
+# (alembic/versions/ ko commit karna hai, isliye isko ignore mat karna)
+
+# ML models (bade files, Git mein mat rakho — Git LFS ya cloud storage use karo)
+app/ml/models/*.pkl
+app/ml/models/*.joblib
+*.h5
+
+# Kaggle/training artifacts
+*.csv
+!demo/seed_data/*.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Uploaded evidence files (local disk storage in demo mode)
+uploads/
+media/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter checkpoints (agar kabhi notebook backend repo mein aaye)
+.ipynb_checkpoints/

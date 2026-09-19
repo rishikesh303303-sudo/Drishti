@@ -1,0 +1,13 @@
+[
+  {
+    "id": "alert-001",
+    "zone_id": "zone-001",
+    "priority": "critical",
+    "status": "draft",
+    "message": "High cash-out risk detected in North Delhi Zone 14. Recommend immediate ATM monitoring.",
+    "suggested_actions": ["Increase ATM monitoring", "Deploy patrol unit"],
+    "requires_approval": true,
+    "recipients": [],
+    "created_at": "2026-09-18T09:00:00"
+  }
+]

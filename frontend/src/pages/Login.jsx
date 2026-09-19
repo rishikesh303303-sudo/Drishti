@@ -73,8 +73,12 @@ button { border: 0; }
   position: relative; display: grid; width: min(44vw, 680px); aspect-ratio: 1;
   min-width: 600px; max-height: none; place-items: center;
   border: 0; border-radius: 50%;
-  background: #f2f3f5;
-  box-shadow: 2rem 2.4rem 4.5rem rgba(156, 164, 174, .27), -1.5rem -1.7rem 3.8rem rgba(255,255,255,.96), inset 1.1rem 1.1rem 2rem rgba(255,255,255,.94), inset -1.2rem -1.3rem 2.1rem rgba(190, 196, 204, .42);
+  background: #dfe2e9;
+  box-shadow:
+    2rem 2.4rem 4.5rem rgba(130, 140, 158, .5),
+    -1.5rem -1.7rem 3.8rem rgba(255,255,255,1),
+    inset 1.1rem 1.1rem 2rem rgba(255,255,255,.92),
+    inset -1.2rem -1.3rem 2.1rem rgba(160, 168, 182, .65);
 }
 .login-orbit::before { position: absolute; inset: 1.2rem; border-radius: inherit; box-shadow: inset .45rem .5rem .9rem rgba(255,255,255,.78), inset -.45rem -.5rem .9rem rgba(197, 202, 209, .2); pointer-events: none; content: ''; }
 .orbit-ring { display: none; }

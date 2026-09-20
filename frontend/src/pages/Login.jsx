@@ -167,46 +167,114 @@ form { display: grid; gap: .85rem; }
 }
 
 @media (max-width: 600px) {
-  .app-shell { 
-    flex-direction: column; 
-    min-height: 100vh; 
-    padding: 0.4rem 0.8rem; 
-    justify-content: flex-start; 
-    align-items: center; 
-    gap: 0.3rem; 
+  .app-shell {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.25rem;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: max(1.5rem, env(safe-area-inset-top)) 1rem max(1.5rem, env(safe-area-inset-bottom));
   }
-  .brand-column { padding: 0.1rem 0 0; text-align: center; align-items: center; width: 100%; max-width: 100%; }
-  .brand-lockup { justify-content: center; gap: 0.5rem; }
-  .brand-lockup h1 { font-size: 2.1rem; } /* Text size bada kiya */
-  .brand-mark { width: 2.5rem; height: 2.5rem; }
-  .tagline { margin-top: 0.15rem; font-size: 0.82rem; text-align: center; line-height: 1.2; } /* Text size bada kiya */
+
+  /* Brand */
+  .brand-column { flex: none; padding: 0; text-align: center; align-items: center; width: 100%; max-width: 100%; }
+  .brand-lockup { justify-content: center; gap: .6rem; }
+  .brand-lockup h1 { font-size: 2.4rem; }
+  .brand-mark { width: 3rem; height: 3rem; }
+  .tagline { margin-top: .5rem; font-size: .9rem; line-height: 1.3; text-align: center; }
   .monitoring-status { display: none; }
-  
-  .login-orbit { 
-    width: min(90vw, 380px) !important; 
-    min-width: unset !important; 
-    aspect-ratio: 1 !important; 
-    border-radius: 50% !important; 
-    padding: 0 !important;
-    margin: -0.4rem auto 0 auto !important;
-    box-shadow: 1rem 1.2rem 2.5rem rgba(130, 140, 158, .4), -0.8rem -0.8rem 2rem rgba(255,255,255,0.95), inset 0.6rem 0.6rem 1.2rem rgba(255,255,255,.9), inset -0.6rem -0.6rem 1.2rem rgba(160, 168, 182, .6);
+
+  /* Circle: --d = diameter. Andar ka sab kuch isi se scale hota hai */
+  .login-orbit {
+    --d: min(calc(100vw - 2.5rem), 460px);
+    width: var(--d);
+    height: var(--d);
+    aspect-ratio: auto;
+    min-width: 0;
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+    flex-shrink: 0;
+    box-shadow:
+      1rem 1.2rem 2.2rem rgba(130, 140, 158, .42),
+      -.8rem -.8rem 1.8rem rgba(255, 255, 255, .95),
+      inset .6rem .6rem 1.2rem rgba(255, 255, 255, .9),
+      inset -.6rem -.6rem 1.2rem rgba(160, 168, 182, .6);
   }
-  .login-orbit::before { display: block; inset: 0.6rem; }
-  .login-content { width: 74% !important; min-width: unset !important; }
-  
-  .login-heading h2 { font-size: 1.55rem; } /* Sign In heading text size bada kiya */
-  .login-heading > p:last-child { margin: 0.1rem 0 0.35rem; font-size: 0.68rem; } /* Subtitle text size bada kiya */
-  .role-selector { margin-bottom: 0.3rem; padding: 0.15rem; }
-  .role-option { padding: 0.25rem 0.15rem; font-size: 0.6rem; gap: 0.2rem; } /* Roles text size bada kiya */
-  .field-grid { gap: 0.25rem; }
-  form { gap: 0.25rem; }
-  .input-shell { min-height: 2rem; gap: 0.25rem; padding: 0 0.45rem; border-radius: 0.65rem; } /* Inputs height & size badhaya */
-  .input-shell input, .input-shell select { font-size: 0.68rem; } /* Input text size bada kiya */
-  .icon-button { width: 1.5rem; height: 1.5rem; }
-  .submit-button { min-height: 2.15rem; margin-top: 0.05rem; font-size: 0.72rem; border-radius: 0.75rem; } /* Submit button text size bada kiya */
-  .security-note { margin-top: 0.25rem; font-size: 0.45rem; gap: 0.15rem; } /* Security note text size bada kiya */
-  .page-index { display: none; }
-  .mesh-lines { display: none; }
+  .login-orbit::before { inset: calc(var(--d) * .02); }
+  .login-content { width: 82%; min-width: 0; max-width: none; }
+
+  /* Heading (circle ke top pe chord chhota hota hai, isliye text chhota aur compact) */
+  .login-heading h2 { font-size: calc(var(--d) * .08); }
+  .login-heading > p:last-child {
+    margin: calc(var(--d) * .012) 0 calc(var(--d) * .03);
+    font-size: max(10.5px, calc(var(--d) * .034));
+    line-height: 1.3;
+  }
+
+  /* Role selector */
+  .role-selector {
+    gap: calc(var(--d) * .006);
+    margin-bottom: 0;
+    padding: calc(var(--d) * .008);
+    border-radius: calc(var(--d) * .04);
+  }
+  .role-option {
+    min-width: 0;
+    padding: calc(var(--d) * .016) calc(var(--d) * .004);
+    gap: calc(var(--d) * .01);
+    font-size: max(10px, calc(var(--d) * .03));
+    border-radius: calc(var(--d) * .034);
+  }
+  .role-option svg { flex: none; width: max(11px, calc(var(--d) * .04)); height: max(11px, calc(var(--d) * .04)); }
+  .role-option span { overflow: hidden; text-overflow: ellipsis; }
+
+  /* Form */
+  form { gap: calc(var(--d) * .02); }
+  .field-grid { gap: calc(var(--d) * .02); }
+  .input-shell {
+    min-height: calc(var(--d) * .09);
+    gap: calc(var(--d) * .02);
+    padding: 0 calc(var(--d) * .032);
+    border-radius: calc(var(--d) * .03);
+  }
+  .input-shell svg { flex: none; width: calc(var(--d) * .05); height: calc(var(--d) * .05); }
+  .input-shell input { font-size: 16px; } /* iPhone pe focus zoom nahi hoga */
+
+  /* State / District: pin icon hata diya taaki text poora dikhe */
+  .select-shell { gap: calc(var(--d) * .01); padding: 0 calc(var(--d) * .025); }
+  .select-shell > svg:first-child { display: none; }
+  .select-shell > svg:last-child { width: calc(var(--d) * .035); height: calc(var(--d) * .035); }
+  .select-shell select { font-size: max(11.5px, calc(var(--d) * .036)); text-overflow: ellipsis; }
+
+  /* Password eye button (.input-shell svg ke baad rakha hai taaki override ho) */
+  .icon-button { width: calc(var(--d) * .07); height: calc(var(--d) * .07); }
+  .icon-button svg { width: calc(var(--d) * .048); height: calc(var(--d) * .048); }
+
+  /* Submit: circle ke neeche chord chhota hai, isliye narrow */
+  .submit-button {
+    width: 80%;
+    margin: calc(var(--d) * .008) auto 0;
+    min-height: calc(var(--d) * .095);
+    font-size: max(13px, calc(var(--d) * .038));
+    border-radius: calc(var(--d) * .04);
+  }
+  .security-note {
+    width: 64%;
+    margin: calc(var(--d) * .02) auto 0;
+    font-size: max(8.5px, calc(var(--d) * .027));
+    line-height: 1.3;
+    text-align: center;
+  }
+  .security-note svg { flex: none; width: 10px; height: 10px; }
+
+  .page-index, .mesh-lines { display: none; }
+}
+
+/* Bahut chhote phones */
+@media (max-width: 360px) {
+  .role-option svg { display: none; }
 }
 `;
 

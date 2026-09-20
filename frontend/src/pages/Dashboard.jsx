@@ -1202,104 +1202,111 @@ export default function Dashboard() {
             grid-template-columns: repeat(2, 1fr);
           }
         }
-        @media (max-width: 700px) {
-          .stat-slider > .stat {
-            flex-basis: 100%;
-          }
-          .app-shell {
-            padding: 10px;
-          }
-          .topbar {
-            padding: 0 5px;
-          }
-          .brand {
-            min-width: 0;
-          }
-          .brand strong {
-            font-size: 27px;
-          }
-          .eye-logo {
-            width: 47px;
-            height: 29px;
-          }
-          .admin-pill,
-          .search {
-            display: none;
-          }
-          .top-actions {
-            margin-left: auto;
-            gap: 8px;
-          }
-          .mobile-menu {
-            display: block;
-          }
-          .layout {
-            display: block;
-          }
-          .sidebar {
-            display: none;
-            width: 100%;
-            min-height: 0;
-            margin-bottom: 12px;
-          }
-          .layout.menu-open .sidebar {
-            display: flex;
-          }
-          .sidebar nav {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-          }
-          .safer {
-            display: none;
-          }
-          .welcome h1 {
-            font-size: 25px;
-          }
-          .welcome p {
-            font-size: 13px;
-          }
-          .stat-slider {
-            grid-template-columns: 1fr;
-          }
-          .stat {
-            height: 77px;
-            padding: 13px 17px;
-          }
-          .stat strong {
-            font-size: 25px;
-          }
-          .main-grid {
-            display: flex;
-            flex-direction: column;
-          }
-          .attention-list {
-            display: flex;
-          }
-          .cat-name {
-            width: 100px;
-            font-size: 12px;
-          }
-          .category-row strong {
-            width: 35px;
-          }
-          .timeline {
-            overflow-x: auto;
-            grid-template-columns: repeat(5, 145px);
-          }
-          .recent {
-            overflow: hidden;
-          }
-          .card {
-            padding: 13px;
-          }
-          .card h2 {
-            font-size: 18px;
-          }
-          .live-button {
-            width: 100%;
-            justify-content: center;
-          }
-        }
+      @media (max-width: 700px) {
+  .app-shell { padding: 10px; }
+
+  /* ---------- Topbar ---------- */
+  .topbar { height: 58px; padding: 0 4px; gap: 10px; }
+  .mobile-menu { display: block; flex: none; padding: 6px; }
+  .brand { min-width: 0; gap: 8px; }
+  .brand strong { font-size: 24px; letter-spacing: -1px; }
+  .eye-logo { width: 38px; height: 38px; }
+  .admin-pill, .search, .sync { display: none; }
+  .top-actions { margin-left: auto; gap: 14px; }
+  .avatar { width: 38px; height: 38px; font-size: 13px; }
+
+  /* ---------- Sidebar (hamburger menu) ---------- */
+  .layout { display: block; }
+  .sidebar { display: none; width: 100%; min-height: 0; margin-bottom: 12px; padding: 10px 0; }
+  .layout.menu-open .sidebar { display: flex; }
+  .sidebar nav { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding-right: 8px; }
+  .sidebar nav button { height: 46px; padding: 0 10px; gap: 9px; font-size: 13px; }
+  .sidebar nav button svg { width: 18px; height: 18px; flex: none; }
+  .sidebar nav button span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sidebar nav button b { right: 8px; width: 21px; height: 21px; line-height: 21px; font-size: 11px; }
+  .safer { display: none; }
+
+  /* ---------- Welcome ---------- */
+  .welcome { flex-direction: column; align-items: stretch !important; gap: 12px; padding: 4px 2px 12px; }
+  .welcome h1 { font-size: 22px; line-height: 1.25; }
+  .welcome p { font-size: 12px; line-height: 1.5; }
+
+  /* ---------- Stat cards: slider ki jagah 2x2 grid ---------- */
+  .stat-viewport { margin: 0; padding: 0; touch-action: auto; cursor: default !important; }
+  .stat-slider {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    transform: none !important; /* inline transform ko override karne ke liye */
+    transition: none;
+  }
+  .stat-slider > .stat:nth-child(n + 5) { display: none; } /* duplicate 4 cards hide */
+  .stat-slider > .stat { min-width: 0; }
+  .stat { height: auto; min-height: 84px; padding: 12px; gap: 10px; border-radius: 15px; }
+  .stat > div { min-width: 0; }
+  .stat .num { font-size: 15px; padding: 5px 7px; border-radius: 9px; }
+  .stat label { font-size: 11px; line-height: 1.25; }
+  .stat strong { font-size: 22px; }
+  .stat .arrow { display: none; }
+  .slider-controls { display: none; }
+
+  /* ---------- Main grid & cards ---------- */
+  .main-grid { display: flex; flex-direction: column; gap: 12px; }
+  .left-column, .attention-list { gap: 12px; }
+  .card { padding: 13px; }
+  .card h2 { font-size: 17px; }
+  .card-title { gap: 8px; margin-bottom: 8px; }
+  .card-title h2 { flex: 1; min-width: 0; line-height: 1.2; }
+  .card-title button { flex: none; white-space: nowrap; font-size: 11px; }
+
+  /* ---------- Category rows: 2 line layout ---------- */
+  .category-row {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "icon name num pct"
+      ".    bar  bar bar";
+    column-gap: 10px;
+    row-gap: 6px;
+    height: auto;
+    padding: 9px 0;
+  }
+  .category-row .cat-icon { grid-area: icon; width: 30px; height: 30px; box-shadow: 0 2px 0 #b6bdf0, 0 5px 9px #7180ce2e; }
+  .category-row .cat-name { grid-area: name; width: auto; font-size: 13px; }
+  .category-row strong { grid-area: num; width: auto; font-size: 13px; text-align: right; }
+  .category-row small { grid-area: pct; width: 40px; font-size: 11px; text-align: right; }
+  .category-row .bar { grid-area: bar; flex: none; height: 8px; }
+
+  /* ---------- Recent Activity: vertical timeline ---------- */
+  .recent { padding-bottom: 13px; overflow: hidden; }
+  .timeline { display: flex; flex-direction: column; overflow: visible; padding: 2px 0 0 6px; }
+  .timeline:before { left: 10.5px; right: auto; width: 2px; height: auto; top: 20px; bottom: 20px; }
+  .event { display: flex; align-items: baseline; gap: 12px; border-left: 0; padding: 8px 0 8px 22px; }
+  .event i { top: 50%; left: 0; margin-top: -6px; }
+  .event time { display: block; flex: none; width: 62px; margin: 0; font-size: 12px; }
+  .event span { font-size: 13px; line-height: 1.45; }
+
+  /* ---------- Needs Your Attention ---------- */
+  .attention { padding-bottom: 13px; }
+  .attention-item { padding: 12px 12px 12px 16px; }
+  .attention-head { gap: 8px; }
+  .attention-head strong { min-width: 0; font-size: 14px; line-height: 1.25; }
+  .attention-num { flex: none; padding: 6px 8px; font-size: 13px; }
+  .risk-badge { flex: none; padding: 6px 10px; font-size: 10px; }
+  .attention-metrics { gap: 10px; }
+  .metric strong { font-size: 22px; }
+  .metric.confidence { display: block; }
+  .metric.confidence div { margin: 6px 0 0; }
+  .attention-note { display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+  .attention-note svg { flex: none; margin-top: 1px; }
+  .attention-item.open .attention-extra { max-height: 80px; }
+  .alert-button { height: 40px; font-size: 13px; }
+
+  /* ---------- Buttons & toast ---------- */
+  .live-button { width: 100%; justify-content: center; padding: 0 16px; font-size: 13px; }
+  .toast { left: 12px; right: 12px; bottom: 12px; font-size: 13px; }
+  .toast svg:last-child { margin-left: auto; }
+}
       `}</style>
     </main>
   );

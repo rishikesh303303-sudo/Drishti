@@ -2,12 +2,11 @@ import os
 import joblib
 import pandas as pd
 
-# Current file: backend/app/ml/hotspot_forecaster.py
-# Backend root tak jaane ke liye 2 levels upar (`../../`)
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(current_dir, "../../fraud_model.pkl")
 
-# Model load karna safe error handling ke sath
+
 try:
     model = joblib.load(MODEL_PATH)
     print(f"✅ Success! Model loaded from backend root: {MODEL_PATH}")
@@ -16,10 +15,7 @@ except Exception as e:
     print(f"❌ Error loading model from {MODEL_PATH}: {e}")
 
 def predict_transaction(data: dict):
-    """
-    Frontend ya case data ko accept karta hai, PaySim trained features par map karta hai, 
-    aur DRISHTI ke liye risk analysis return karta hai.
-    """
+    
     if model is None:
         return {
             "is_fraud": 0,
@@ -27,11 +23,9 @@ def predict_transaction(data: dict):
             "explanation": ["ML Model file not found in backend root, running in fallback mode"]
         }
 
-    # 1. Incoming data se values extract karna (default values ke sath)
     amount = float(data.get("amount", 50000.0))
     old_balance = float(data.get("oldbalanceOrg", amount))
     
-    # 2. PaySim model ke exact required features ke hisaab se payload banana
     payload = {
         "step": int(data.get("step", 1)),
         "amount": amount,
@@ -47,7 +41,6 @@ def predict_transaction(data: dict):
     
     df_input = pd.DataFrame([payload])
     
-    # 3. Prediction aur probability nikalna
     prediction = int(model.predict(df_input)[0])
     
     if hasattr(model, "predict_proba"):
@@ -56,7 +49,7 @@ def predict_transaction(data: dict):
     else:
         probability = float(prediction)
     
-    # 4. Explanation / Reasons generate karna
+   
     reasons = []
     if amount > 200000:
         reasons.append("High transaction amount threshold breached")

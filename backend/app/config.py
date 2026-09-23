@@ -9,9 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Empty string means "no real database" -> every router falls back to
-# demo/seed_data/*.json via database.load_seed(). Set this in .env once
-# Postgres is running to switch the whole app to real data.
+
 DATABASE_URL: str = os.getenv("DATABASE_URL", "")
 
 # Where the demo JSON fixtures live.

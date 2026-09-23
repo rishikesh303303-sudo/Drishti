@@ -185,7 +185,7 @@ form { display: grid; gap: .85rem; }
   .tagline { margin-top: .5rem; font-size: .9rem; line-height: 1.3; text-align: center; }
   .monitoring-status { display: none; }
 
-  /* Circle: --d = diameter. Andar ka sab kuch isi se scale hota hai */
+  
   .login-orbit {
     --d: min(calc(100vw - 2.5rem), 460px);
     width: var(--d);
@@ -240,19 +240,19 @@ form { display: grid; gap: .85rem; }
     border-radius: calc(var(--d) * .03);
   }
   .input-shell svg { flex: none; width: calc(var(--d) * .05); height: calc(var(--d) * .05); }
-  .input-shell input { font-size: 16px; } /* iPhone pe focus zoom nahi hoga */
+  .input-shell input { font-size: 16px; } 
 
-  /* State / District: pin icon hata diya taaki text poora dikhe */
+  
   .select-shell { gap: calc(var(--d) * .01); padding: 0 calc(var(--d) * .025); }
   .select-shell > svg:first-child { display: none; }
   .select-shell > svg:last-child { width: calc(var(--d) * .035); height: calc(var(--d) * .035); }
   .select-shell select { font-size: max(11.5px, calc(var(--d) * .036)); text-overflow: ellipsis; }
 
-  /* Password eye button (.input-shell svg ke baad rakha hai taaki override ho) */
+  
   .icon-button { width: calc(var(--d) * .07); height: calc(var(--d) * .07); }
   .icon-button svg { width: calc(var(--d) * .048); height: calc(var(--d) * .048); }
 
-  /* Submit: circle ke neeche chord chhota hai, isliye narrow */
+  
   .submit-button {
     width: 80%;
     margin: calc(var(--d) * .008) auto 0;
